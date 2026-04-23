@@ -10,6 +10,8 @@ import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { APP } from "@/data/app";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useApp } from "@/context/AppContext";
+import { toast } from "sonner";
 
 type Role = "student" | "teacher" | "admin";
 
@@ -53,6 +55,23 @@ export function DashboardLayout({ children, role = "student", title }: { childre
   const location = useLocation();
   const router = useRouter();
   const nav = NAV[role];
+  const { currentUser, notifications, unreadCount, markAllRead, logout } = useApp();
+
+  const myNotifs = currentUser
+    ? notifications.filter((n) => n.userId === currentUser.id)
+    : [];
+  const initials = (currentUser?.name ?? "U U")
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Signed out");
+    router.navigate({ to: "/" });
+  };
 
   const isActive = (to: string) => location.pathname === to || (to !== `/${role}` && location.pathname.startsWith(to));
 
@@ -157,24 +176,43 @@ export function DashboardLayout({ children, role = "student", title }: { childre
           <ThemeToggle />
 
           <div className="relative">
-            <button onClick={() => { setNotifOpen(!notifOpen); setProfileOpen(false); }} className="relative flex h-9 w-9 items-center justify-center rounded-lg border hover:bg-accent">
+            <button
+              onClick={() => {
+                const opening = !notifOpen;
+                setNotifOpen(opening);
+                setProfileOpen(false);
+                if (opening && unreadCount > 0) markAllRead();
+              }}
+              className="relative flex h-9 w-9 items-center justify-center rounded-lg border hover:bg-accent"
+            >
               <Bell className="h-4 w-4" />
-              <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-destructive" />
+              {unreadCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-destructive-foreground">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
             </button>
             <AnimatePresence>
               {notifOpen && (
                 <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="absolute right-0 mt-2 w-80 rounded-xl border bg-popover p-2 shadow-elegant">
                   <p className="px-3 py-2 text-xs font-semibold text-muted-foreground">NOTIFICATIONS</p>
-                  {[
-                    { t: "Project approved", d: "AI Chatbot was approved" },
-                    { t: "New comment", d: "Prof. Kapoor commented" },
-                    { t: "Deadline soon", d: "Final Report due in 6 days" },
-                  ].map((n, i) => (
-                    <div key={i} className="flex items-start gap-2 rounded-lg p-3 hover:bg-accent">
-                      <Sparkles className="mt-0.5 h-4 w-4 text-primary" />
-                      <div><p className="text-sm font-medium">{n.t}</p><p className="text-xs text-muted-foreground">{n.d}</p></div>
-                    </div>
-                  ))}
+                  {myNotifs.length === 0 ? (
+                    <p className="p-4 text-center text-xs text-muted-foreground">
+                      You're all caught up.
+                    </p>
+                  ) : (
+                    myNotifs.slice(0, 8).map((n) => (
+                      <div key={n.id} className="flex items-start gap-2 rounded-lg p-3 hover:bg-accent">
+                        <Sparkles className="mt-0.5 h-4 w-4 text-primary" />
+                        <div className="min-w-0">
+                          <p className="text-sm">{n.text}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {new Date(n.at).toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -182,15 +220,25 @@ export function DashboardLayout({ children, role = "student", title }: { childre
 
           <div className="relative">
             <button onClick={() => { setProfileOpen(!profileOpen); setNotifOpen(false); }} className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full gradient-primary text-sm font-semibold text-primary-foreground">AS</div>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full gradient-primary text-sm font-semibold text-primary-foreground">
+                {initials}
+              </div>
             </button>
             <AnimatePresence>
               {profileOpen && (
                 <motion.div initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }} className="absolute right-0 mt-2 w-56 rounded-xl border bg-popover p-2 shadow-elegant">
-                  <div className="border-b p-3"><p className="text-sm font-semibold">Aarav Sharma</p><p className="text-xs text-muted-foreground capitalize">{role}</p></div>
+                  <div className="border-b p-3">
+                    <p className="text-sm font-semibold">{currentUser?.name ?? "Guest"}</p>
+                    <p className="text-xs text-muted-foreground capitalize">
+                      {currentUser?.role ?? role}
+                    </p>
+                  </div>
                   <Link to="/settings" className="block rounded-md px-3 py-2 text-sm hover:bg-accent">Profile & Settings</Link>
                   <Link to="/support" className="block rounded-md px-3 py-2 text-sm hover:bg-accent">Support</Link>
-                  <button onClick={() => router.navigate({ to: "/" })} className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm text-destructive hover:bg-accent">
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm text-destructive hover:bg-accent"
+                  >
                     <LogOut className="h-4 w-4" /> Sign out
                   </button>
                 </motion.div>
