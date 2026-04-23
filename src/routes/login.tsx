@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
+import { useApp } from "@/context/AppContext";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Sign in — SAPAMS" }, { name: "description", content: "Sign in to your SAPAMS account." }] }),
@@ -15,16 +16,28 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const router = useRouter();
+  const { login } = useApp();
   const [role, setRole] = useState<"student" | "teacher" | "admin">("student");
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim()) {
+      toast.error("Please enter your email");
+      return;
+    }
+    if (password.length < 4) {
+      toast.error("Password must be at least 4 characters");
+      return;
+    }
     setLoading(true);
     setTimeout(() => {
-      toast.success(`Welcome back! Signing in as ${role}…`);
+      const user = login(email, role);
+      toast.success(`Welcome back, ${user.name}!`);
       router.navigate({ to: `/${role}` as any });
-    }, 700);
+    }, 500);
   };
 
   return (
@@ -70,7 +83,7 @@ function LoginPage() {
               <Label htmlFor="email">Email</Label>
               <div className="relative mt-1">
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input id="email" type="email" placeholder="you@university.edu" required className="pl-9" />
+                <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@university.edu" required className="pl-9" />
               </div>
             </div>
             <div>
@@ -80,12 +93,15 @@ function LoginPage() {
               </div>
               <div className="relative mt-1">
                 <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="••••••••" required className="pl-9" />
+                <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required className="pl-9" />
               </div>
             </div>
             <Button type="submit" disabled={loading} className="w-full gradient-primary text-primary-foreground shadow-elegant hover:opacity-90">
               {loading ? "Signing in…" : <>Continue <ArrowRight className="ml-1 h-4 w-4" /></>}
             </Button>
+            <p className="text-center text-xs text-muted-foreground">
+              Demo mode — any email/password works. Pick a role above.
+            </p>
           </form>
 
           <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">

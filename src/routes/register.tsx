@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
+import { useApp } from "@/context/AppContext";
 
 export const Route = createFileRoute("/register")({
   head: () => ({ meta: [{ title: "Create account — SAPAMS" }] }),
@@ -15,8 +16,22 @@ export const Route = createFileRoute("/register")({
 
 function RegisterPage() {
   const router = useRouter();
+  const { register } = useApp();
   const [step, setStep] = useState(1);
   const [role, setRole] = useState<"student" | "teacher" | "admin">("student");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [department, setDepartment] = useState("");
+
+  const next1 = () => {
+    if (!name.trim() || !email.trim()) return toast.error("Name and email are required");
+    setStep(2);
+  };
+  const finish = () => {
+    register({ name: name.trim(), email: email.trim(), role, department: department.trim() || undefined });
+    toast.success("Account created! Welcome aboard.");
+    router.navigate({ to: `/${role}` as any });
+  };
 
   return (
     <div className="grid min-h-screen md:grid-cols-2">
@@ -60,9 +75,9 @@ function RegisterPage() {
                   <button key={r} onClick={() => setRole(r)} className={`rounded-xl border p-4 text-sm font-medium capitalize transition ${role === r ? "border-primary bg-primary/10" : "hover:bg-accent"}`}>{r}</button>
                 ))}
               </div>
-              <div><Label>Full name</Label><Input className="mt-1" placeholder="Jane Doe" /></div>
-              <div><Label>Email</Label><Input className="mt-1" type="email" placeholder="you@university.edu" /></div>
-              <Button onClick={() => setStep(2)} className="w-full gradient-primary text-primary-foreground">Continue <ArrowRight className="ml-1 h-4 w-4" /></Button>
+              <div><Label>Full name</Label><Input value={name} onChange={(e) => setName(e.target.value)} className="mt-1" placeholder="Jane Doe" /></div>
+              <div><Label>Email</Label><Input value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1" type="email" placeholder="you@university.edu" /></div>
+              <Button onClick={next1} className="w-full gradient-primary text-primary-foreground">Continue <ArrowRight className="ml-1 h-4 w-4" /></Button>
             </motion.div>
           )}
 
@@ -70,7 +85,7 @@ function RegisterPage() {
             <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="mt-6 space-y-4">
               <div><Label>Institution</Label><Input className="mt-1" placeholder="Massachusetts Institute of Tech." /></div>
               <div className="grid grid-cols-2 gap-3">
-                <div><Label>Department</Label><Input className="mt-1" placeholder="Computer Science" /></div>
+                <div><Label>Department</Label><Input value={department} onChange={(e) => setDepartment(e.target.value)} className="mt-1" placeholder="Computer Science" /></div>
                 <div><Label>Year</Label><Input className="mt-1" placeholder="2025" /></div>
               </div>
               <div><Label>Password</Label><Input className="mt-1" type="password" placeholder="At least 8 characters" /></div>
@@ -84,7 +99,7 @@ function RegisterPage() {
               <div className="flex justify-between gap-2">
                 {[...Array(6)].map((_, i) => <Input key={i} maxLength={1} className="h-14 w-12 text-center text-xl font-semibold" />)}
               </div>
-              <Button onClick={() => { toast.success("Account created! Welcome aboard."); router.navigate({ to: `/${role}` as any }); }} className="w-full gradient-primary text-primary-foreground">Verify & Continue</Button>
+              <Button onClick={finish} className="w-full gradient-primary text-primary-foreground">Verify & Continue</Button>
               <button className="block w-full text-center text-sm text-muted-foreground hover:text-foreground">Resend code</button>
             </motion.div>
           )}
