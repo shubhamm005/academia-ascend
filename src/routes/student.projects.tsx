@@ -15,9 +15,10 @@ import { useApp, type Project, type ProjectStatus } from "@/context/AppContext";
 export const Route = createFileRoute("/student/projects")({
   head: () => ({ meta: [{ title: "My Projects — SAPAMS" }] }),
   component: StudentProjectsPage,
-  validateSearch: (search: Record<string, unknown>) => ({
-    new: search.new === "1" || search.new === 1 ? "1" : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { new?: "1" } => {
+    const v = search.new;
+    return v === "1" || v === 1 ? { new: "1" } : {};
+  },
 });
 
 function StudentProjectsPage() {
