@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { ThemeProvider } from "@/hooks/use-theme";
 import { Toaster } from "@/components/ui/sonner";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
+import { AppProvider } from "@/context/AppContext";
 
 import appCss from "../styles.css?url";
 
@@ -65,9 +66,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <ThemeProvider>
-      <Outlet />
-      <ScrollToTop />
-      <Toaster position="top-right" richColors />
+      <AppProvider>
+        <Outlet />
+        <ScrollToTop />
+        <Toaster position="top-right" richColors />
+      </AppProvider>
     </ThemeProvider>
   );
 }
