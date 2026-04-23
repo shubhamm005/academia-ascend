@@ -9,38 +9,526 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TeacherRouteImport } from './routes/teacher'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as StudentRouteImport } from './routes/student'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as MaintenanceRouteImport } from './routes/maintenance'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as InternshipsRouteImport } from './routes/internships'
+import { Route as HelpRouteImport } from './routes/help'
+import { Route as FeedbackRouteImport } from './routes/feedback'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as DocsRouteImport } from './routes/docs'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ComingSoonRouteImport } from './routes/coming-soon'
+import { Route as CertificatesRouteImport } from './routes/certificates'
+import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StudentProjectsRouteImport } from './routes/student.projects'
+import { Route as StudentAchievementsRouteImport } from './routes/student.achievements'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherRoute = TeacherRouteImport.update({
+  id: '/teacher',
+  path: '/teacher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRoute = StudentRouteImport.update({
+  id: '/student',
+  path: '/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaintenanceRoute = MaintenanceRouteImport.update({
+  id: '/maintenance',
+  path: '/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InternshipsRoute = InternshipsRouteImport.update({
+  id: '/internships',
+  path: '/internships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedbackRoute = FeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComingSoonRoute = ComingSoonRouteImport.update({
+  id: '/coming-soon',
+  path: '/coming-soon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CertificatesRoute = CertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentProjectsRoute = StudentProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentAchievementsRoute = StudentAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => StudentRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/calendar': typeof CalendarRoute
+  '/certificates': typeof CertificatesRoute
+  '/coming-soon': typeof ComingSoonRoute
+  '/contact': typeof ContactRoute
+  '/docs': typeof DocsRoute
+  '/events': typeof EventsRoute
+  '/feedback': typeof FeedbackRoute
+  '/help': typeof HelpRoute
+  '/internships': typeof InternshipsRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/messages': typeof MessagesRoute
+  '/privacy': typeof PrivacyRoute
+  '/register': typeof RegisterRoute
+  '/resume': typeof ResumeRoute
+  '/settings': typeof SettingsRoute
+  '/student': typeof StudentRouteWithChildren
+  '/support': typeof SupportRoute
+  '/teacher': typeof TeacherRoute
+  '/terms': typeof TermsRoute
+  '/student/achievements': typeof StudentAchievementsRoute
+  '/student/projects': typeof StudentProjectsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/calendar': typeof CalendarRoute
+  '/certificates': typeof CertificatesRoute
+  '/coming-soon': typeof ComingSoonRoute
+  '/contact': typeof ContactRoute
+  '/docs': typeof DocsRoute
+  '/events': typeof EventsRoute
+  '/feedback': typeof FeedbackRoute
+  '/help': typeof HelpRoute
+  '/internships': typeof InternshipsRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/messages': typeof MessagesRoute
+  '/privacy': typeof PrivacyRoute
+  '/register': typeof RegisterRoute
+  '/resume': typeof ResumeRoute
+  '/settings': typeof SettingsRoute
+  '/student': typeof StudentRouteWithChildren
+  '/support': typeof SupportRoute
+  '/teacher': typeof TeacherRoute
+  '/terms': typeof TermsRoute
+  '/student/achievements': typeof StudentAchievementsRoute
+  '/student/projects': typeof StudentProjectsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/calendar': typeof CalendarRoute
+  '/certificates': typeof CertificatesRoute
+  '/coming-soon': typeof ComingSoonRoute
+  '/contact': typeof ContactRoute
+  '/docs': typeof DocsRoute
+  '/events': typeof EventsRoute
+  '/feedback': typeof FeedbackRoute
+  '/help': typeof HelpRoute
+  '/internships': typeof InternshipsRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/login': typeof LoginRoute
+  '/maintenance': typeof MaintenanceRoute
+  '/messages': typeof MessagesRoute
+  '/privacy': typeof PrivacyRoute
+  '/register': typeof RegisterRoute
+  '/resume': typeof ResumeRoute
+  '/settings': typeof SettingsRoute
+  '/student': typeof StudentRouteWithChildren
+  '/support': typeof SupportRoute
+  '/teacher': typeof TeacherRoute
+  '/terms': typeof TermsRoute
+  '/student/achievements': typeof StudentAchievementsRoute
+  '/student/projects': typeof StudentProjectsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/calendar'
+    | '/certificates'
+    | '/coming-soon'
+    | '/contact'
+    | '/docs'
+    | '/events'
+    | '/feedback'
+    | '/help'
+    | '/internships'
+    | '/leaderboard'
+    | '/login'
+    | '/maintenance'
+    | '/messages'
+    | '/privacy'
+    | '/register'
+    | '/resume'
+    | '/settings'
+    | '/student'
+    | '/support'
+    | '/teacher'
+    | '/terms'
+    | '/student/achievements'
+    | '/student/projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/calendar'
+    | '/certificates'
+    | '/coming-soon'
+    | '/contact'
+    | '/docs'
+    | '/events'
+    | '/feedback'
+    | '/help'
+    | '/internships'
+    | '/leaderboard'
+    | '/login'
+    | '/maintenance'
+    | '/messages'
+    | '/privacy'
+    | '/register'
+    | '/resume'
+    | '/settings'
+    | '/student'
+    | '/support'
+    | '/teacher'
+    | '/terms'
+    | '/student/achievements'
+    | '/student/projects'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/calendar'
+    | '/certificates'
+    | '/coming-soon'
+    | '/contact'
+    | '/docs'
+    | '/events'
+    | '/feedback'
+    | '/help'
+    | '/internships'
+    | '/leaderboard'
+    | '/login'
+    | '/maintenance'
+    | '/messages'
+    | '/privacy'
+    | '/register'
+    | '/resume'
+    | '/settings'
+    | '/student'
+    | '/support'
+    | '/teacher'
+    | '/terms'
+    | '/student/achievements'
+    | '/student/projects'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
+  CalendarRoute: typeof CalendarRoute
+  CertificatesRoute: typeof CertificatesRoute
+  ComingSoonRoute: typeof ComingSoonRoute
+  ContactRoute: typeof ContactRoute
+  DocsRoute: typeof DocsRoute
+  EventsRoute: typeof EventsRoute
+  FeedbackRoute: typeof FeedbackRoute
+  HelpRoute: typeof HelpRoute
+  InternshipsRoute: typeof InternshipsRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  LoginRoute: typeof LoginRoute
+  MaintenanceRoute: typeof MaintenanceRoute
+  MessagesRoute: typeof MessagesRoute
+  PrivacyRoute: typeof PrivacyRoute
+  RegisterRoute: typeof RegisterRoute
+  ResumeRoute: typeof ResumeRoute
+  SettingsRoute: typeof SettingsRoute
+  StudentRoute: typeof StudentRouteWithChildren
+  SupportRoute: typeof SupportRoute
+  TeacherRoute: typeof TeacherRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher': {
+      id: '/teacher'
+      path: '/teacher'
+      fullPath: '/teacher'
+      preLoaderRoute: typeof TeacherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student': {
+      id: '/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof StudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maintenance': {
+      id: '/maintenance'
+      path: '/maintenance'
+      fullPath: '/maintenance'
+      preLoaderRoute: typeof MaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/internships': {
+      id: '/internships'
+      path: '/internships'
+      fullPath: '/internships'
+      preLoaderRoute: typeof InternshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feedback': {
+      id: '/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coming-soon': {
+      id: '/coming-soon'
+      path: '/coming-soon'
+      fullPath: '/coming-soon'
+      preLoaderRoute: typeof ComingSoonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/certificates': {
+      id: '/certificates'
+      path: '/certificates'
+      fullPath: '/certificates'
+      preLoaderRoute: typeof CertificatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +536,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student/projects': {
+      id: '/student/projects'
+      path: '/projects'
+      fullPath: '/student/projects'
+      preLoaderRoute: typeof StudentProjectsRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/student/achievements': {
+      id: '/student/achievements'
+      path: '/achievements'
+      fullPath: '/student/achievements'
+      preLoaderRoute: typeof StudentAchievementsRouteImport
+      parentRoute: typeof StudentRoute
+    }
   }
 }
 
+interface StudentRouteChildren {
+  StudentAchievementsRoute: typeof StudentAchievementsRoute
+  StudentProjectsRoute: typeof StudentProjectsRoute
+}
+
+const StudentRouteChildren: StudentRouteChildren = {
+  StudentAchievementsRoute: StudentAchievementsRoute,
+  StudentProjectsRoute: StudentProjectsRoute,
+}
+
+const StudentRouteWithChildren =
+  StudentRoute._addFileChildren(StudentRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
+  CalendarRoute: CalendarRoute,
+  CertificatesRoute: CertificatesRoute,
+  ComingSoonRoute: ComingSoonRoute,
+  ContactRoute: ContactRoute,
+  DocsRoute: DocsRoute,
+  EventsRoute: EventsRoute,
+  FeedbackRoute: FeedbackRoute,
+  HelpRoute: HelpRoute,
+  InternshipsRoute: InternshipsRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  LoginRoute: LoginRoute,
+  MaintenanceRoute: MaintenanceRoute,
+  MessagesRoute: MessagesRoute,
+  PrivacyRoute: PrivacyRoute,
+  RegisterRoute: RegisterRoute,
+  ResumeRoute: ResumeRoute,
+  SettingsRoute: SettingsRoute,
+  StudentRoute: StudentRouteWithChildren,
+  SupportRoute: SupportRoute,
+  TeacherRoute: TeacherRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
