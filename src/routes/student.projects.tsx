@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, Search, FolderKanban } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { PageTransition } from "@/components/common/PageTransition";
@@ -15,15 +15,30 @@ import { useApp, type Project, type ProjectStatus } from "@/context/AppContext";
 export const Route = createFileRoute("/student/projects")({
   head: () => ({ meta: [{ title: "My Projects — SAPAMS" }] }),
   component: StudentProjectsPage,
+  validateSearch: (search: Record<string, unknown>): { new?: "1" } => {
+    const v = search.new;
+    return v === "1" || v === 1 ? { new: "1" } : {};
+  },
 });
 
 function StudentProjectsPage() {
   const { projectsForCurrent, currentUser } = useApp();
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Project | null>(null);
   const [detail, setDetail] = useState<Project | null>(null);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<"all" | ProjectStatus>("all");
+
+  // Auto-open create dialog when navigated with ?new=1
+  useEffect(() => {
+    if (search.new === "1") {
+      setEditing(null);
+      setOpen(true);
+      navigate({ search: {} as any, replace: true });
+    }
+  }, [search.new, navigate]);
 
   const all = projectsForCurrent();
   const filtered = useMemo(() => {

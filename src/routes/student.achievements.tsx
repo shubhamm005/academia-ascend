@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { PageTransition } from "@/components/common/PageTransition";
@@ -20,6 +20,21 @@ export const Route = createFileRoute("/student/achievements")({
 function AchievementUpload() {
   const [selected, setSelected] = useState<string | null>(null);
   const [visible, setVisible] = useState(true);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Auto-select the first category so the form is visible immediately when
+  // the user lands here from the dashboard CTA.
+  useEffect(() => {
+    if (!selected && achievementCategories[0]) {
+      setSelected(achievementCategories[0].id);
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    if (selected && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [selected]);
 
   return (
     <DashboardLayout role="student" title="Add Achievement">
@@ -52,6 +67,7 @@ function AchievementUpload() {
 
           {selected && (
             <motion.form
+              ref={formRef}
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
               onSubmit={(e) => { e.preventDefault(); toast.success("Achievement submitted for verification!"); }}
               className="mt-8 grid gap-5 rounded-2xl border bg-card p-6 shadow-card md:grid-cols-2"

@@ -14,14 +14,12 @@ import { Route as TeacherRouteImport } from './routes/teacher'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as MaintenanceRouteImport } from './routes/maintenance'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
-import { Route as InternshipsRouteImport } from './routes/internships'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as FeedbackRouteImport } from './routes/feedback'
 import { Route as EventsRouteImport } from './routes/events'
@@ -61,11 +59,6 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResumeRoute = ResumeRouteImport.update({
-  id: '/resume',
-  path: '/resume',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -94,11 +87,6 @@ const LoginRoute = LoginRouteImport.update({
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
   path: '/leaderboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InternshipsRoute = InternshipsRouteImport.update({
-  id: '/internships',
-  path: '/internships',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HelpRoute = HelpRouteImport.update({
@@ -179,14 +167,12 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/feedback': typeof FeedbackRoute
   '/help': typeof HelpRoute
-  '/internships': typeof InternshipsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/maintenance': typeof MaintenanceRoute
   '/messages': typeof MessagesRoute
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
-  '/resume': typeof ResumeRoute
   '/settings': typeof SettingsRoute
   '/student': typeof StudentRouteWithChildren
   '/support': typeof SupportRoute
@@ -207,14 +193,12 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/feedback': typeof FeedbackRoute
   '/help': typeof HelpRoute
-  '/internships': typeof InternshipsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/maintenance': typeof MaintenanceRoute
   '/messages': typeof MessagesRoute
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
-  '/resume': typeof ResumeRoute
   '/settings': typeof SettingsRoute
   '/student': typeof StudentRouteWithChildren
   '/support': typeof SupportRoute
@@ -236,14 +220,12 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/feedback': typeof FeedbackRoute
   '/help': typeof HelpRoute
-  '/internships': typeof InternshipsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/maintenance': typeof MaintenanceRoute
   '/messages': typeof MessagesRoute
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
-  '/resume': typeof ResumeRoute
   '/settings': typeof SettingsRoute
   '/student': typeof StudentRouteWithChildren
   '/support': typeof SupportRoute
@@ -266,14 +248,12 @@ export interface FileRouteTypes {
     | '/events'
     | '/feedback'
     | '/help'
-    | '/internships'
     | '/leaderboard'
     | '/login'
     | '/maintenance'
     | '/messages'
     | '/privacy'
     | '/register'
-    | '/resume'
     | '/settings'
     | '/student'
     | '/support'
@@ -294,14 +274,12 @@ export interface FileRouteTypes {
     | '/events'
     | '/feedback'
     | '/help'
-    | '/internships'
     | '/leaderboard'
     | '/login'
     | '/maintenance'
     | '/messages'
     | '/privacy'
     | '/register'
-    | '/resume'
     | '/settings'
     | '/student'
     | '/support'
@@ -322,14 +300,12 @@ export interface FileRouteTypes {
     | '/events'
     | '/feedback'
     | '/help'
-    | '/internships'
     | '/leaderboard'
     | '/login'
     | '/maintenance'
     | '/messages'
     | '/privacy'
     | '/register'
-    | '/resume'
     | '/settings'
     | '/student'
     | '/support'
@@ -351,14 +327,12 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   FeedbackRoute: typeof FeedbackRoute
   HelpRoute: typeof HelpRoute
-  InternshipsRoute: typeof InternshipsRoute
   LeaderboardRoute: typeof LeaderboardRoute
   LoginRoute: typeof LoginRoute
   MaintenanceRoute: typeof MaintenanceRoute
   MessagesRoute: typeof MessagesRoute
   PrivacyRoute: typeof PrivacyRoute
   RegisterRoute: typeof RegisterRoute
-  ResumeRoute: typeof ResumeRoute
   SettingsRoute: typeof SettingsRoute
   StudentRoute: typeof StudentRouteWithChildren
   SupportRoute: typeof SupportRoute
@@ -403,13 +377,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/resume': {
-      id: '/resume'
-      path: '/resume'
-      fullPath: '/resume'
-      preLoaderRoute: typeof ResumeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -450,13 +417,6 @@ declare module '@tanstack/react-router' {
       path: '/leaderboard'
       fullPath: '/leaderboard'
       preLoaderRoute: typeof LeaderboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/internships': {
-      id: '/internships'
-      path: '/internships'
-      fullPath: '/internships'
-      preLoaderRoute: typeof InternshipsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/help': {
@@ -578,14 +538,12 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   FeedbackRoute: FeedbackRoute,
   HelpRoute: HelpRoute,
-  InternshipsRoute: InternshipsRoute,
   LeaderboardRoute: LeaderboardRoute,
   LoginRoute: LoginRoute,
   MaintenanceRoute: MaintenanceRoute,
   MessagesRoute: MessagesRoute,
   PrivacyRoute: PrivacyRoute,
   RegisterRoute: RegisterRoute,
-  ResumeRoute: ResumeRoute,
   SettingsRoute: SettingsRoute,
   StudentRoute: StudentRouteWithChildren,
   SupportRoute: SupportRoute,

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, FolderKanban, Trophy, Calendar, MessageSquare, Users,
   Settings, Bell, Search, Menu, X, ChevronLeft, LogOut, GraduationCap,
-  Briefcase, FileText, BarChart3, ShieldCheck, HelpCircle, Sparkles, Award,
+  BarChart3, ShieldCheck, HelpCircle, Sparkles, Award,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { APP } from "@/data/app";
@@ -23,8 +23,6 @@ const NAV: Record<Role, { label: string; icon: any; to: string }[]> = {
     { label: "Calendar", icon: Calendar, to: "/calendar" },
     { label: "Messages", icon: MessageSquare, to: "/messages" },
     { label: "Leaderboard", icon: Award, to: "/leaderboard" },
-    { label: "Internships", icon: Briefcase, to: "/internships" },
-    { label: "Resume Builder", icon: FileText, to: "/resume" },
   ],
   teacher: [
     { label: "Dashboard", icon: LayoutDashboard, to: "/teacher" },
