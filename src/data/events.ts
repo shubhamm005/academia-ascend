@@ -11,11 +11,3 @@ export const announcements = [
   { id: 2, title: "New achievement category added", body: "Open Source Contributions now counts towards your score.", date: "2025-04-18", priority: "medium" },
   { id: 3, title: "Library hours extended", body: "24/7 access during exam season.", date: "2025-04-15", priority: "low" },
 ];
-
-export const internships = [
-  { id: 1, company: "Google", role: "SWE Intern", location: "Bangalore", type: "Remote", stipend: "₹1.2L/mo", tags: ["React", "Go"] },
-  { id: 2, company: "Microsoft", role: "Data Science Intern", location: "Hyderabad", type: "On-site", stipend: "₹1.1L/mo", tags: ["Python", "ML"] },
-  { id: 3, company: "Stripe", role: "Frontend Intern", location: "Remote", type: "Remote", stipend: "$4.5k/mo", tags: ["TypeScript", "React"] },
-  { id: 4, company: "Notion", role: "Design Engineer", location: "Remote", type: "Remote", stipend: "$5k/mo", tags: ["Figma", "React"] },
-  { id: 5, company: "Zerodha", role: "Backend Intern", location: "Bangalore", type: "Hybrid", stipend: "₹80k/mo", tags: ["Go", "Postgres"] },
-];
