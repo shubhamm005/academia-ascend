@@ -5,10 +5,18 @@ import { GraduationCap, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { APP, NAV_LINKS } from "@/data/app";
 import { Button } from "@/components/ui/button";
+import { useApp } from "@/context/AppContext";
 
 export function PublicNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { currentUser } = useApp();
+  const dashboardTo =
+    currentUser?.role === "admin"
+      ? "/admin"
+      : currentUser?.role === "teacher"
+        ? "/teacher"
+        : "/student";
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
@@ -39,10 +47,18 @@ export function PublicNav() {
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <Button variant="ghost" asChild><Link to="/login">Sign in</Link></Button>
-          <Button asChild className="gradient-primary text-primary-foreground shadow-elegant hover:opacity-90">
-            <Link to="/register">Get started</Link>
-          </Button>
+          {currentUser ? (
+            <Button asChild className="gradient-primary text-primary-foreground shadow-elegant hover:opacity-90">
+              <Link to={dashboardTo as any}>Open dashboard</Link>
+            </Button>
+          ) : (
+            <>
+              <Button variant="ghost" asChild><Link to="/login">Sign in</Link></Button>
+              <Button asChild className="gradient-primary text-primary-foreground shadow-elegant hover:opacity-90">
+                <Link to="/register">Get started</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
